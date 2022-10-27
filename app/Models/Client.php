@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Payment;
 
 class Client extends Model
 {
@@ -15,6 +16,6 @@ class Client extends Model
 
     public function payments()
     {
-        return $this->hasMany('App\Models\Payment');
+        return $this->hasMany(Payment::class);
     }
 }

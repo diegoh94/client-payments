@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\Uuids;
+use App\Models\Client;
 
 class Payment extends Model
 {
@@ -24,7 +25,7 @@ class Payment extends Model
 
     public function client()
     {
-        return $this->belongsTo('App\Models\Client');
+        return $this->belongsTo(Client::class);
     }
 
     public function getKeyName()
