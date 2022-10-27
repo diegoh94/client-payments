@@ -19,6 +19,7 @@ Para el desarrollo del presente proyecto se ha tomado en cuando lo expresado en 
 - Se ha utilizado una clave primaria convencional para el modelo Client y una clave especial (uuid) para el modelo Payment
 - Se está usuando por defecto el primer valor de https://mindicador.cl/api/dolar para leer el tipo de cambio.
 - El tipo de cambio es almacenado en caché y olvidado al finalizar el día. De esta forma se garantiza realizar una sola peticion diaria a la API.
+- Seha tratado de ser bastante declarativo en los nombres de variables, funciones y asi evitar poner muchos comentarios.
 ## Lógica
 ### Guardar exchange_rate en payments
 - Al crear un pago, un Observer detecta el evento de creación y dispara un job.
@@ -45,7 +46,8 @@ Devuelve un arreglo de objetos Client.
 
 2. Listar pagos de un cliente
 GET http://client-payments.test.com/api/payments?client=7
-Se debe enviar un parámetro y se espera un arreglo de objetos Payment correspondiente al cliente indicado
+Se debe enviar un parámetro 'client' y se espera un arreglo de objetos Payment correspondiente al cliente indicado. 
+O bien, puede no enviarse ningún parámetro y el endpoint devolverá todos los payments
 
 ![image](https://user-images.githubusercontent.com/26363315/198379333-aee54d66-d01b-4cc0-86a6-b5992c689570.png)
 

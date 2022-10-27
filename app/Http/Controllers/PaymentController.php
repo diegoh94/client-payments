@@ -34,10 +34,14 @@ class PaymentController extends Controller
 
     public function paymentsByClient(Request $request) 
     {  
-        $clientId = $request->input('client');     
+        $query = Payment::query();
 
-        return Payment::query()
-            ->where('client_id', $clientId)
-            ->get(['uuid', 'payment_date', 'expires_at', 'status', 'client_id', 'clp_usd']);
+        if ($request->has('client')) {
+            $query->where('client_id', $request->input('client'));
+        }
+
+        return $query->get([
+            'uuid', 'payment_date', 'expires_at', 'status', 'client_id', 'clp_usd'
+        ]);
     }
 }
