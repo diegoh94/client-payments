@@ -31,10 +31,10 @@ class RegisterExchangeRateJob implements ShouldQueue
     public function handle()
     {
         // determine the final day (datetime)
-        $expired_at = Carbon::now()->endOfDay();
+        $expiredAt = Carbon::now()->endOfDay();
 
         // Forever save exchange rate in cache
-        $exchangeRateUsd = cache()->remember('exchange_rate_usd',$expired_at ,function() {
+        $exchangeRateUsd = cache()->remember('exchange_rate_usd',$expiredAt ,function() {
             $client = new ExchangeRateUsdClient();
             return $client->exchangeRateToUsd();
         });
