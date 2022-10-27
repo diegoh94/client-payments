@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('clients', [ClientController::class, 'getClients']);
+Route::get('clients', [ClientController::class, 'index']);
 Route::get('payments', [PaymentController::class, 'paymentsByClient']);
 Route::post('payments', [PaymentController::class, 'store']);
