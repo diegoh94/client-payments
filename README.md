@@ -1,5 +1,5 @@
-# Technical tests - Enpoints
-Para el desarrollo del presente proyecto se ha tomado en cuando lo expresado en la historia de usuario. Haciendo uso de mi criterio en ocasiones para detalles de la lógica de negocio.
+# Technical tests - Endpoints
+Para el desarrollo del presente proyecto se ha tomado en cuenta lo expresado en la historia de usuario. Haciendo uso de mi criterio en ocasiones para detalles de la lógica de negocio.
 ## Stack
 - Laravel 8.83.25
 - PHP 8.1.11
@@ -19,7 +19,7 @@ Para el desarrollo del presente proyecto se ha tomado en cuando lo expresado en 
 - Se ha utilizado una clave primaria convencional para el modelo Client y una clave especial (uuid) para el modelo Payment
 - Se está usuando por defecto el primer valor de https://mindicador.cl/api/dolar para leer el tipo de cambio.
 - El tipo de cambio es almacenado en caché y olvidado al finalizar el día. De esta forma se garantiza realizar una sola peticion diaria a la API.
-- Seha tratado de ser bastante declarativo en los nombres de variables, funciones y asi evitar poner muchos comentarios.
+- Se ha tratado de ser bastante declarativo en los nombres de variables, funciones y asi evitar poner muchos comentarios.
 ## Lógica
 ### Guardar exchange_rate en payments
 - Al crear un pago, un Observer detecta el evento de creación y dispara un job.
@@ -27,9 +27,9 @@ Para el desarrollo del presente proyecto se ha tomado en cuando lo expresado en 
 - En caso la variable ya exista en caché, tomará el valor directamente de la caché.
 - Caso contrario hará una petición a la api(https://mindicador.cl/api/dolar) a través del cliente ExchangeRateUsdClient
 - Para limitar el tiempo de permanencia en caché de esta variable, se ha usado Carbon. Clase que permite establecer un datatime del final del día, que será pasado como argumento al helper cache()->remember().
-- Seguidamente el mismo job se encarga de actualizar el payment, asignando el valor de exchange_rate
+- Seguidamente el mismo job se encarga de actualizar el payment, asignando el valor de exchange_rate al payment en cuestión.
 ### Envío de correo
-- Para diseñar el correo se hace uso de Mailable, para ello he creado CreatedPaymentNotificationMailable.
+- Para diseñar el correo se hace uso de la clase Mailable y un blade, para ello he creado CreatedPaymentNotificationMailable.
 - El envío de correo también se esta encolando cuándo se hace create del modelo.
 - Para este caso no se ha creado un job, pues basta con ir CreatedPaymentNotificationMailable y hacer implements de ShouldQueue. 
 - Con esto conseguimos encolar siempre que se quiera hacer un envío de correo.
@@ -53,8 +53,8 @@ O bien, puede no enviarse ningún parámetro y el endpoint devolverá todos los 
 
 3. Crear un pago en la plataforma
 POST http://client-payments.test.com/api/payments
-Hacemos una petición POST y registramos un pago con nuestros datos.
-Se espera una respuesta 201, el registro asíncrono de exchange_rate y el envío del correo.
+Hacemos una petición POST y registramos un payment con nuestros datos.
+Se espera una respuesta 201 cpn un mensaje de éxito, el registro asíncrono de exchange_rate y el envío del correo.
 
 ![image](https://user-images.githubusercontent.com/26363315/198380145-78a4bc63-7dbc-4a27-98e7-2651cec62d6d.png)
 
